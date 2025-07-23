@@ -83,6 +83,18 @@ struct ContentView: View {
 }
 ```
 
+### Single CardView
+
+Source URL: [link](https://www.hackingwithswift.com/books/ios-swiftui/designing-a-single-card-view)
+
+Branch: `01-single-card-view`
+
+Result:
+
+<div align="center">
+  <img src="./images/01-single-card-view.gif" width="300"/>
+</div>
+
 ## Acknowledgments
 
 Original code created by: [Paul Hudson - @twostraws](https://x.com/twostraws) (Thank you!)
