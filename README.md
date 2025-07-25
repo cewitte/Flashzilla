@@ -6,6 +6,8 @@ Source URL: [link](https://www.hackingwithswift.com/books/ios-swiftui/flashzilla
 
 >In this project we’re going to build an app that helps users learn things using flashcards – cards with one thing written on such as “to buy”, and another thing written on the other side, such as “comprar”. Of course, this is a digital app so we don’t need to worry about “the other side”, and can instead just make the detail for the flash card appear when it’s tapped.
 
+_Note: In this project, I chose to go with less branches and a shorter Read Me, focusing only on what I've found interesting or important for my own projects. One can always refer to Paul's original tutorial (always recommended) for a complete explanation._
+
 ### Gestures in SwiftUI
 
 Examples of gestures _(note: it doesn't work well in the simulator)_:
@@ -87,12 +89,49 @@ struct ContentView: View {
 
 Source URL: [link](https://www.hackingwithswift.com/books/ios-swiftui/designing-a-single-card-view)
 
-Branch: `01-single-card-view`
-
 Result:
 
 <div align="center">
   <img src="./images/01-single-card-view.gif" width="300"/>
+</div>
+
+### Building a stack of cards
+
+Source URL: [link](https://www.hackingwithswift.com/books/ios-swiftui/building-a-stack-of-cards)
+
+I've found this `extension` for stacking cards really interesting:
+
+```swift
+extension View {
+    func stacked(at position: Int, in total: Int) -> some View {
+        let offset = Double(total - position)
+        return self.offset(y: offset * 10)
+    }
+}
+```
+
+And here's the code...
+
+```swift
+ZStack {
+    Image(.background)
+        .resizable()
+        .ignoresSafeArea()
+    VStack {
+        ZStack {
+            ForEach(0..<cards.count, id: \.self) { index in
+                CardView(card: cards[index])
+                    .stacked(at: index, in: cards.count)
+            }
+        }
+    }
+}
+```
+
+... that creates the end result below:
+
+<div align="center">
+  <img src="./images/stacked_cards.png" width="300"/>
 </div>
 
 ## Acknowledgments

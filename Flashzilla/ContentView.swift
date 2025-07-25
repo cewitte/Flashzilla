@@ -7,18 +7,30 @@
 
 import SwiftUI
 
+extension View {
+    func stacked(at position: Int, in total: Int) -> some View {
+        let offset = Double(total - position)
+        return self.offset(y: offset * 10)
+    }
+}
+
 struct ContentView: View {
-    @State var tapMessage = "Tap to start!"
-    @State var gestureChangedMessage = "This triggers whenever the gesture changes!"
-    @State var scaleMessage = "Scale gesture!"
-    @State var currentAmount = 0.0
-    @State var finalAmount = 1.0
-    @State var rotationMessage = "Rotation gesture!"
-    @State var currentAngleAmount = Angle.zero
-    @State var finalAngleAmount = Angle.zero
+    @State private var cards = Array<Card>(repeating: .example, count: 10)
     
     var body: some View {
-        CardView(card: .example)
+        ZStack {
+            Image(.background)
+                .resizable()
+                .ignoresSafeArea()
+            VStack {
+                ZStack {
+                    ForEach(0..<cards.count, id: \.self) { index in
+                        CardView(card: cards[index])
+                            .stacked(at: index, in: cards.count)
+                    }
+                }
+            }
+        }
     }
 }
 
