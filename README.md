@@ -134,6 +134,32 @@ ZStack {
   <img src="./images/stacked_cards.png" width="300"/>
 </div>
 
+### Challenge 1
+
+Source URL: [Flashzilla Wrap Up](https://www.hackingwithswift.com/books/ios-swiftui/flashzilla-wrap-up)
+
+Branch: `challenge-01`
+
+>When adding a card, the text fields keep their current text. Fix that so that the textfields clear themselves after a card is added.
+
+This problem was solved by simply setting the two state variables back to an empty string value after adding (and saving) the card as below:
+
+```swift
+func addCard() {
+    let trimmedPrompt = newPrompt.trimmingCharacters(in: .whitespaces)
+    let trimmedAnswer = newAnswer.trimmingCharacters(in: .whitespaces)
+    guard trimmedPrompt.isEmpty == false && trimmedAnswer.isEmpty == false else { return }
+
+    let card = Card(prompt: trimmedPrompt, answer: trimmedAnswer)
+    cards.insert(card, at: 0)
+    saveData()
+    
+    // Challenge 1 solution below
+    newPrompt = ""
+    newAnswer = ""
+}
+```
+
 ## Acknowledgments
 
 Original code created by: [Paul Hudson - @twostraws](https://x.com/twostraws) (Thank you!)
